@@ -2,6 +2,19 @@ def number_code(number)
   number.to_s.split("").map{|e| e.to_i.+(65).chr }.join("")
 end
 
+class Mode
+  def initialize(notes, total)
+    @notes = notes
+    @total = total
+  end
+  def [](index)
+    len = @notes.length
+    note = index % len
+    hauteur = index / len
+    @notes[note] + hauteur * @total
+  end
+end
+
 class Note
   def initialize(note)
     @note = note
