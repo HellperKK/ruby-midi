@@ -1,2 +1,2 @@
 # ruby-midi
-Ruby Library ti generate nmidi using lilypond
+Ruby Library to generate midi using lilypond
