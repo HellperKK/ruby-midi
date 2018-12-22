@@ -3,19 +3,19 @@
 lowerA = \absolute {
   \clef alto
 
-  c d e f g a b c' d' e' f' g' a' b'
+  c cis d dis e f fis g gis a ais b c' cis'
 }
 
 lowerB = \absolute {
   \clef alto
 
-  c d e f g a b c' d' e' f' g' a' b'
+  c cis d dis e f fis g gis a ais b c' cis'
 }
 
 lowerC = \absolute {
   \clef alto
 
-  c d e f g a b c' d' e' f' g' a' b'
+  c cis d dis e f fis g gis a ais b c' cis'
 }
 
 \score {
