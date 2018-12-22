@@ -1,3 +1,7 @@
+def number_code(number)
+  number.to_s.split("").map{|e| e.to_i.+(65).chr }.join("")
+end
+
 class Note
   def initialize(note)
     @note = note
@@ -44,7 +48,7 @@ class Score
   def render_portees
     codes = @portees.each_with_index.map do |elem, index|
       <<-EOF
-lower#{index} = \\absolute {
+lower#{number_code(index)} = \\absolute {
   \\clef alto
 
   #{elem.render}
@@ -53,9 +57,28 @@ lower#{index} = \\absolute {
     end
     codes.join("\n")
   end
+  def render_score
+    @portees.each_index.map{|e| "\\new Staff = \"lower#{number_code(e)}\" \\lower#{number_code(e)}"}.join("\n")
+  end
+  def render
+    <<-EOF
+\\version "2.18.2"
+
+#{self.render_portees}
+\\score {
+  \\new PianoStaff <<
+    #{self.render_score}
+  >>
+  \\layout { }
+  \\midi { }
+}
+    EOF
+  end
 end
 portee = Portee.new
 0.upto(13){|i| portee.add(i)}
 score = Score.new
 score.add_portee(portee)
-puts score.render_portees
+score.add_portee(portee)
+score.add_portee(portee)
+File.open("Test.ly", "w"){|file| file.write(score.render)}
