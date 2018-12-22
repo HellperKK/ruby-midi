@@ -33,6 +33,29 @@ class Portee
     notes = @notes.map {|e| e.render}.join(" ")
   end
 end
+
+class Score
+  def initialize
+    @portees = []
+  end
+  def add_portee(portee)
+    @portees << portee
+  end
+  def render_portees
+    codes = @portees.each_with_index.map do |elem, index|
+      <<-EOF
+lower#{index} = \\absolute {
+  \\clef alto
+
+  #{elem.render}
+}
+      EOF
+    end
+    codes.join("\n")
+  end
+end
 portee = Portee.new
 0.upto(13){|i| portee.add(i)}
-puts portee.render
+score = Score.new
+score.add_portee(portee)
+puts score.render_portees
