@@ -3,7 +3,7 @@ def number_code(number)
 end
 
 class Mode
-  def initialize(notes, total)
+  def initialize(notes, total=12)
     @notes = notes
     @total = total
   end
@@ -49,9 +49,11 @@ class Portee
     @notes = []
   end
   def add(note)
+    # @notes << note
     @notes << Note.new(note)
   end
   def add_line(notes)
+    # @notes += notes
     @notes += notes.map{|e| Note.new(e)}
   end
   def render
@@ -95,6 +97,11 @@ lower#{number_code(index)} = \\absolute {
 }
     EOF
   end
+end
+
+module Gammes
+  MAJOR = Mode.new([0, 2, 4, 5, 7, 9, 11])
+  MINOR = Mode.new([0, 2, 3, 5, 7, 8, 10])
 end
 # portee = Portee.new
 # 0.upto(13){|i| portee.add(i)}
