@@ -7,11 +7,10 @@ class Generator
   def initialize
     @voice = []
     @bass = []
-    notes = [0, 2, 4, 5, 7, 9, 11]
-    @notes = notes + notes.map{|e| e + 12} + notes.map{|e| e + 24}
+    @notes = Mode.new([0, 2, 4, 5, 7, 9, 11], 12)
   end
-  def generate
-    @bass = Array.new(10){rand(0..6)}
+  def generate(size)
+    @bass = Array.new(size){rand(0..6)}
     @voice = @bass.map do |elem|
       elem + pick_random([2, 4, 7, 9, 11, 14])
     end
@@ -29,5 +28,5 @@ class Generator
 end
 
 gen = Generator.new
-gen.generate
+gen.generate(100)
 gen.export
