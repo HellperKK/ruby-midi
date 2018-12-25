@@ -4,18 +4,19 @@ def pick_random(tab)
 end
 
 class Generator
-  def initialize
+  def initialize(gamme)
     @voices = []
-    @notes = Mode.new([0, 2, 4, 5, 7, 9, 11], 12)
+    @notes = gamme
   end
   def generate(size)
     @voices << Array.new(size){rand(0..6)}
-    @voices << @voices[-1].map do |elem|
-      elem + pick_random([2, 4, 7, 9, 11, 14])
+    @voices << @voices[0].map do |elem|
+      elem + pick_random([2, 4, 7])
     end
-    @voices << @voices[-1].map do |elem|
-      elem + pick_random([2, 4, 7, 9, 11, 14])
+    @voices << @voices[0].map do |elem|
+      elem + pick_random([9, 11, 14])
     end
+    @voices.reverse!
   end
   def export
     score = Score.new
@@ -28,6 +29,6 @@ class Generator
   end
 end
 
-gen = Generator.new
+gen = Generator.new(Gammes::major(0))
 gen.generate(100)
 gen.export

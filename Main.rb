@@ -1,17 +1,18 @@
 def number_code(number)
-  number.to_s.split("").map{|e| e.to_i.+(65).chr }.join("")
+  number.to_s.split("").map{|e| e.to_i.+(65).chr}.join("")
 end
 
 class Mode
-  def initialize(notes, total=12)
+  def initialize(notes, bass, total=12)
     @notes = notes
     @total = total
+    @bass = bass
   end
   def [](index)
     len = @notes.length
     note = index % len
     hauteur = index / len
-    @notes[note] + hauteur * @total
+    @bass + @notes[note] + hauteur * @total
   end
 end
 
@@ -57,7 +58,7 @@ class Portee
     @notes += notes.map{|e| Note.new(e)}
   end
   def render
-    notes = @notes.map {|e| e.render}.join(" ")
+    notes = @notes.map{|e| e.render}.join(" ")
   end
 end
 
@@ -100,13 +101,18 @@ lower#{number_code(index)} = \\absolute {
 end
 
 module Gammes
-  MAJOR = Mode.new([0, 2, 4, 5, 7, 9, 11])
-  MINOR = Mode.new([0, 2, 3, 5, 7, 8, 10])
+  def self.major(bass)
+    Mode.new([0, 2, 4, 5, 7, 9, 11], bass)
+  end
+  def self.minor(bass)
+    Mode.new([0, 2, 3, 5, 7, 8, 10], bass)
+  end
 end
-# portee = Portee.new
-# 0.upto(13){|i| portee.add(i)}
-# score = Score.new
-# score.add_portee(portee)
-# score.add_portee(portee)
-# score.add_portee(portee)
-# File.open("Test.ly", "w"){|file| file.write(score.render)}
+portee = Portee.new
+mode = Gammes.major(0)
+0.upto(11){|i| portee.add(mode[i])}
+mode = Gammes.minor(0)
+0.upto(11){|i| portee.add(mode[i])}
+score = Score.new
+score.add_portee(portee)
+File.open("Test.ly", "w"){|file| file.write(score.render)}
