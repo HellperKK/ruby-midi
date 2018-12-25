@@ -3,8 +3,9 @@ def number_code(number)
 end
 
 class Score
-  def initialize
+  def initialize(tempo=120)
     @portees = []
+    @tempo = tempo
   end
   def add_portee(portee)
     @portees << portee
@@ -14,6 +15,7 @@ class Score
       <<-EOF
 lower#{number_code(index)} = \\absolute {
   \\clef alto
+  \\tempo 4 = #{@tempo}
 
   #{elem.render}
 }
