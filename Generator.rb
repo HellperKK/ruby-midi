@@ -1,4 +1,8 @@
-require_relative "Main.rb"
+require_relative "src/Mode.rb"
+require_relative "src/Note.rb"
+require_relative "src/Portee.rb"
+require_relative "src/Score.rb"
+
 def pick_random(tab)
   tab[rand(0...tab.length)]
 end
@@ -31,4 +35,4 @@ end
 
 gen = Generator.new(Mode.major(0))
 gen.generate(100)
-gen.export("TestGenerate.ly")
+gen.export("test/TestGenerate.ly")
