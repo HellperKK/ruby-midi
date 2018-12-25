@@ -2,16 +2,13 @@ require_relative "src/Mode.rb"
 require_relative "src/Note.rb"
 require_relative "src/Portee.rb"
 require_relative "src/Score.rb"
+require_relative "src/GeneratorBase.rb"
 
 def pick_random(tab)
   tab[rand(0...tab.length)]
 end
 
-class Generator
-  def initialize(gamme)
-    @voices = []
-    @notes = gamme
-  end
+class SimpleGenerator < GeneratorBase
   def generate(size)
     @voices << Array.new(size){rand(0..6)}
     @voices << @voices[0].map do |elem|
@@ -22,17 +19,8 @@ class Generator
     end
     @voices.reverse!
   end
-  def export(path)
-    score = Score.new
-    @voices.each do |notes|
-      portee = Portee.new
-      portee.add_line(notes.map{|e| Note.new(@notes[e])})
-      score.add_portee(portee)
-    end
-    File.open(path, "w"){|file| file.write(score.render)}
-  end
 end
 
-gen = Generator.new(Mode.major(0))
+gen = SimpleGenerator.new(Mode.major(0))
 gen.generate(100)
 gen.export("test/TestGenerate.ly")
