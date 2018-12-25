@@ -22,6 +22,11 @@ class Grid
   def get_collumn_at(index)
     @grid.map{|i| i[index]}
   end
+  def set_collumn_at(index, new_col)
+    new_col.each_with_index do |item, ind|
+      @grid[ind][index] = item
+    end
+  end
   def fill(value)
     @grid.each{|i| i.fill(value)}
   end
