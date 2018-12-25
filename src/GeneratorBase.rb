@@ -1,6 +1,8 @@
 # Attempt of a base class for générating music
 # Meant to be used via inheritance and not directly
 
+require_relative "Grid.rb"
+
 class GeneratorBase
   def initialize(gamme, tempo)
     @voices = []
@@ -8,7 +10,7 @@ class GeneratorBase
     @tempo = tempo
   end
   def generate(size, channels)
-    @voices = Array.new(channels){Array.new(size)}
+    @voices = Grid.new(channels, size)
   end
   def export(path)
     score = Score.new(@tempo)
