@@ -18,7 +18,3 @@ end
 score = Score.new
 score.add_portee(portee)
 File.open("test/Test.ly", "w"){|file| file.write(score.render)}
-
-gen = GeneratorBase.new(Mode.major(0), 240)
-gen.generate(100, 4)
-gen.export("test/TestGenerate.ly")
