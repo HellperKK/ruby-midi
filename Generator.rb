@@ -26,7 +26,7 @@ class Generator
     score = Score.new
     @voices.each do |notes|
       portee = Portee.new
-      portee.add_line(notes.map{|e| @notes[e]})
+      portee.add_line(notes.map{|e| Note.new(@notes[e])})
       score.add_portee(portee)
     end
     File.open(path, "w"){|file| file.write(score.render)}
