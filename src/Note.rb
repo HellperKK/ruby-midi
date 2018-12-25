@@ -1,6 +1,7 @@
 class Note
-  def initialize(note)
+  def initialize(note, delay=4)
     @note = note
+    @delay = delay
   end
   def render
     hauteur = @note / 12
@@ -20,9 +21,9 @@ class Note
       when 11 then txt = 'b'
     end
     if hauteur >= 0
-      txt + ("'" * hauteur)
+      txt + ("'" * hauteur) + @delay.to_s
     else
-      txt + ("," * hauteur.abs)
+      txt + ("," * hauteur.abs) + @delay.to_s
     end
   end
 end
