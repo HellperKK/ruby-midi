@@ -18,17 +18,17 @@ class Generator
     end
     @voices.reverse!
   end
-  def export
+  def export(path)
     score = Score.new
     @voices.each do |notes|
       portee = Portee.new
       portee.add_line(notes.map{|e| @notes[e]})
       score.add_portee(portee)
     end
-    File.open("TestGenerate.ly", "w"){|file| file.write(score.render)}
+    File.open(path, "w"){|file| file.write(score.render)}
   end
 end
 
-gen = Generator.new(Gammes::major(0))
+gen = Generator.new(Mode.major(0))
 gen.generate(100)
-gen.export
+gen.export("TestGenerate.ly")
