@@ -10,6 +10,9 @@ class Grid
   def []=(x, y, value)
     @grid[y][x] = value
   end
+  def to_s
+    @grid.to_s
+  end
   def each
     @grid.each{|item| yield(item)}
   end
@@ -17,7 +20,7 @@ class Grid
     @grid[index]
   end
   def set_line_at(index, new_line)
-    @grid[index] = new_line
+    @grid.each_index{|i| @grid[i] = new_line[i]}
   end
   def get_collumn_at(index)
     @grid.map{|i| i[index]}
@@ -29,6 +32,13 @@ class Grid
   end
   def fill(value)
     @grid.each{|i| i.fill(value)}
+  end
+  def swap!
+    temp = []
+    0.upto(@grid[0].length - 1) do |index|
+      temp << self.get_collumn_at(index)
+    end
+    @grid = temp
   end
   def reverse!
     @grid.reverse!
