@@ -20,7 +20,7 @@ class Grid
     @grid[index]
   end
   def set_line_at(index, new_line)
-    @grid.each_index{|i| @grid[i] = new_line[i]}
+    @grid[index].each_index{|i| @grid[index][i] = new_line[i]}
   end
   def get_collumn_at(index)
     @grid.map{|i| i[index]}
